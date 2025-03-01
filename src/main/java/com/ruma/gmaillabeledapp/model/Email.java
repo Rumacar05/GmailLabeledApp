@@ -8,13 +8,13 @@ public class Email {
     private String subject;
     private String from;
     private List<String> label;
-    private Message message;
+    private long uid;
 
-    public Email(String subject, String from, List<String> label, Message message) {
+    public Email(String subject, String from, List<String> label, long uid) {
         this.subject = subject;
         this.from = from;
         this.label = label;
-        this.message = message;
+        this.uid = uid;
     }
 
     public String getSubject() {
@@ -41,12 +41,8 @@ public class Email {
         this.label = label;
     }
 
-    public Message getMessage() {
-        return message;
-    }
-
-    public void setMessage(Message message) {
-        this.message = message;
+    public long getUid() {
+        return uid;
     }
 
     @Override

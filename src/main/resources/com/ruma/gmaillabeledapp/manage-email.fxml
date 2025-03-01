@@ -10,5 +10,8 @@
       <ListView fx:id="lvEmails" layoutX="12.0" layoutY="35.0" prefHeight="274.0" prefWidth="695.0" />
       <Label fx:id="lblEmail" layoutX="14.0" layoutY="14.0" text="Correos electrónicos" />
       <Button fx:id="btnLoadEmails" layoutX="312.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onLoadEmailsClicked" text="Cargar correos" />
+      <Button fx:id="btnSetDone" disable="true" layoutX="34.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#onSetDoneClicked" prefHeight="25.0" prefWidth="179.0" text="Marcar como Done" />
+      <Button fx:id="btnSetInProgress" disable="true" layoutX="270.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#onSetInProgressClicked" text="Marcar como Work.in.Progress" />
+      <Button fx:id="btnSetToBeDone" disable="true" layoutX="503.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#onSetToBeDoneClicked" prefHeight="25.0" prefWidth="179.0" text="Marcar como To.be.Done" />
    </children>
 </AnchorPane>

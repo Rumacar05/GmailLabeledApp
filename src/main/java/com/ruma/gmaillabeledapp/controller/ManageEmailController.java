@@ -6,6 +6,7 @@ import com.ruma.gmaillabeledapp.service.AlertService;
 import com.ruma.gmaillabeledapp.service.EmailService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,6 +18,14 @@ public class ManageEmailController {
     @FXML
     private Button btnLoadEmails;
     @FXML
+    private Button btnSetDone;
+
+    @FXML
+    private Button btnSetInProgress;
+
+    @FXML
+    private Button btnSetToBeDone;
+    @FXML
     private Label lblEmail;
     @FXML
     private ListView<Email> lvEmails;
@@ -25,26 +34,71 @@ public class ManageEmailController {
 
     @FXML
     void initialize() {
-        emailService = new EmailService();
+        emailService = new EmailService(Configuration.GMAIL_USERNAME, Configuration.GMAIL_PASSWORD);
         lblEmail.setText("Correo electrónico " + Configuration.GMAIL_USERNAME);
     }
 
     @FXML
     void onLoadEmailsClicked() {
-        btnLoadEmails.setDisable(true);
+        disableButtons(true);
 
-        try {
-            ObservableList<Email> emails =
-                    FXCollections.observableArrayList(emailService.readInbox(Configuration.GMAIL_USERNAME,
-                            Configuration.GMAIL_PASSWORD));
+        Task<ObservableList<Email>> task = new Task<>() {
+            @Override
+            protected ObservableList<Email> call() throws Exception {
+                return FXCollections.observableArrayList(emailService.readInbox());
+            }
+        };
 
+        task.setOnSucceeded(event -> {
+            ObservableList<Email> emails = task.getValue();
             lvEmails.setItems(emails);
-        } catch (Exception ex) {
+            disableButtons(false);
+        });
+
+        task.setOnFailed(event -> {
+            Throwable ex = task.getException();
             AlertService.showAlert(Alert.AlertType.ERROR, "Error",
                     "No se han podido cargar los emails: " + ex.getMessage());
-        } finally {
-            btnLoadEmails.setDisable(false);
+
+            disableButtons(false);
+        });
+
+        new Thread(task).start();
+    }
+
+    @FXML
+    void onSetDoneClicked() {
+        setLabelForEmail("Done");
+    }
+
+    @FXML
+    void onSetInProgressClicked() {
+        setLabelForEmail("Work.in.Progress");
+    }
+
+    @FXML
+    void onSetToBeDoneClicked() {
+        setLabelForEmail("To.be.Done");
+    }
+
+    private void setLabelForEmail(String labelFolder) {
+        try {
+            Email email = lvEmails.getSelectionModel().getSelectedItem();
+            if (email != null) {
+                emailService.setFolderForEmail(email, labelFolder);
+                lvEmails.refresh();
+            }
+        } catch (Exception ex) {
+            AlertService.showAlert(Alert.AlertType.ERROR, "Error",
+                    "No se ha podido poner la etiqueta: " + ex.getMessage());
         }
+    }
+
+    private void disableButtons(boolean b) {
+        btnLoadEmails.setDisable(b);
+        btnSetDone.setDisable(b);
+        btnSetInProgress.setDisable(b);
+        btnSetToBeDone.setDisable(b);
     }
 
 }
