@@ -45,10 +45,6 @@ public class EmailService {
             Folder[] labelFolders = new Folder[EMAILS_LABELS.length];
             for (int i = 0; i < EMAILS_LABELS.length; i++) {
                 labelFolders[i] = store.getFolder(EMAILS_LABELS[i]);
-
-                if (!labelFolders[i].exists()) {
-                    labelFolders[i].create(Folder.HOLDS_MESSAGES);
-                }
             }
 
             Message[] messages = inbox.getMessages();
@@ -105,16 +101,18 @@ public class EmailService {
         }
 
         for (Folder folder : labelFolders) {
-            folder.open(Folder.READ_ONLY);
+            if (folder.exists()) {
+                folder.open(Folder.READ_ONLY);
 
-            for (Message labeledMessage : folder.getMessages()) {
-                String labeledMessageId = getMessageId(labeledMessage);
-                if (messageId.equals(labeledMessageId)) {
-                    labels.add(folder.getName());
+                for (Message labeledMessage : folder.getMessages()) {
+                    String labeledMessageId = getMessageId(labeledMessage);
+                    if (messageId.equals(labeledMessageId)) {
+                        labels.add(folder.getName());
+                    }
                 }
-            }
 
-            folder.close();
+                folder.close();
+            }
         }
 
         return labels;
