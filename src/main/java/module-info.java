@@ -1,6 +1,7 @@
 module com.ruma.gmaillabeledapp {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jakarta.mail;
 
 
     opens com.ruma.gmaillabeledapp to javafx.fxml;

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ruma.gmaillabeledapp.controller.ManageEmailController">
+<AnchorPane prefHeight="400.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ruma.gmaillabeledapp.controller.ManageEmailController">
    <children>
-      <ListView fx:id="lvEmails" layoutX="12.0" layoutY="35.0" prefHeight="274.0" prefWidth="577.0" />
+      <ListView fx:id="lvEmails" layoutX="12.0" layoutY="35.0" prefHeight="274.0" prefWidth="695.0" />
       <Label fx:id="lblEmail" layoutX="14.0" layoutY="14.0" text="Correos electrónicos" />
+      <Button fx:id="btnLoadEmails" layoutX="312.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onLoadEmailsClicked" text="Cargar correos" />
    </children>
 </AnchorPane>
