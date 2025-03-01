@@ -10,6 +10,8 @@ import java.util.Properties;
 public class EmailService {
 
     private static final String[] EMAILS_LABELS = {"Done", "Work.in.Progress", "To.be.Done"};
+    private static final String MAIL_PROTOCOL = "imaps";
+    private static final String MAIL_HOST = "imap.gmail.com";
 
     private final String emailAddress;
     private final String password;
@@ -21,8 +23,8 @@ public class EmailService {
 
     private Session getSessionImap() {
         Properties properties = new Properties();
-        properties.put("mail.store.protocol", "imaps");
-        properties.put("mail.imaps.host", "imap.gmail.com");
+        properties.put("mail.store.protocol", MAIL_PROTOCOL);
+        properties.put("mail.imaps.host", MAIL_HOST);
         properties.put("mail.imaps.port", "993");
         properties.put("mail.imaps.ssl.enable", "true");
 
@@ -33,8 +35,8 @@ public class EmailService {
         List<Email> emails = new ArrayList<>();
         Session session = this.getSessionImap();
 
-        try (Store store = session.getStore("imaps")) {
-            store.connect("imap.gmail.com", 993, emailAddress, password);
+        try (Store store = session.getStore(MAIL_PROTOCOL)) {
+            store.connect(MAIL_HOST, 993, emailAddress, password);
             Folder inbox = store.getFolder("INBOX");
             inbox.open(Folder.READ_ONLY);
 
@@ -71,8 +73,8 @@ public class EmailService {
     public void setFolderForEmail(Email email, String folder) throws Exception {
         Session session = this.getSessionImap();
 
-        try (Store store = session.getStore("imaps")) {
-            store.connect("imap.gmail.com", 993, emailAddress, password);
+        try (Store store = session.getStore(MAIL_PROTOCOL)) {
+            store.connect(MAIL_HOST, 993, emailAddress, password);
             Folder inbox = store.getFolder("INBOX");
             inbox.open(Folder.READ_WRITE);
 
