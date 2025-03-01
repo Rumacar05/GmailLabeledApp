@@ -47,14 +47,14 @@ public class ManageEmailController {
             }
         };
 
-        task.setOnSucceeded(event -> {
+        task.setOnSucceeded(_ -> {
             ObservableList<Email> emails = task.getValue();
             lvEmails.setItems(emails);
             disableButtons(false);
             progressBar.setVisible(false);
         });
 
-        task.setOnFailed(event -> {
+        task.setOnFailed(_ -> {
             Throwable ex = task.getException();
             AlertService.showAlert(Alert.AlertType.ERROR, "Error",
                     "No se han podido cargar los emails: " + ex.getMessage());
@@ -87,7 +87,7 @@ public class ManageEmailController {
 
         Email email = lvEmails.getSelectionModel().getSelectedItem();
         if (email != null) {
-            Task<Void> task = new Task<Void>() {
+            Task<Void> task = new Task<>() {
                 @Override
                 protected Void call() throws Exception {
                     emailService.setFolderForEmail(email, labelFolder);
@@ -95,14 +95,14 @@ public class ManageEmailController {
                 }
             };
 
-            task.setOnSucceeded(event -> {
+            task.setOnSucceeded(_ -> {
                 lvEmails.refresh();
                 progressBar.setVisible(false);
                 disableButtons(false);
             });
 
 
-            task.setOnFailed(event -> {
+            task.setOnFailed(_ -> {
                 progressBar.setVisible(false);
                 disableButtons(false);
 
