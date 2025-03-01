@@ -82,11 +82,11 @@ public class ManageEmailController {
     }
 
     private void setLabelForEmail(String labelFolder) {
-        progressBar.setVisible(true);
-        disableButtons(true);
-
         Email email = lvEmails.getSelectionModel().getSelectedItem();
         if (email != null) {
+            progressBar.setVisible(true);
+            disableButtons(true);
+
             Task<Void> task = new Task<>() {
                 @Override
                 protected Void call() throws Exception {
