@@ -68,17 +68,17 @@ public class ManageEmailController {
 
     @FXML
     void onSetDoneClicked() {
-        setLabelForEmail("Done");
+        setLabelForEmail(Configuration.FOLDER_DONE);
     }
 
     @FXML
     void onSetInProgressClicked() {
-        setLabelForEmail("Work.in.Progress");
+        setLabelForEmail(Configuration.FOLDER_WORK_IN_PROGRESS);
     }
 
     @FXML
     void onSetToBeDoneClicked() {
-        setLabelForEmail("To.be.Done");
+        setLabelForEmail(Configuration.FOLDER_TO_BE_DONE);
     }
 
     private void setLabelForEmail(String labelFolder) {

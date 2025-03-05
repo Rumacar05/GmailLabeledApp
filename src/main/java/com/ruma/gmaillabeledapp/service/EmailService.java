@@ -1,5 +1,6 @@
 package com.ruma.gmaillabeledapp.service;
 
+import com.ruma.gmaillabeledapp.config.Configuration;
 import com.ruma.gmaillabeledapp.model.Email;
 import jakarta.mail.*;
 
@@ -9,7 +10,8 @@ import java.util.Properties;
 
 public class EmailService {
 
-    private static final String[] EMAILS_LABELS = {"Done", "Work.in.Progress", "To.be.Done"};
+    private static final String[] EMAILS_LABELS = {Configuration.FOLDER_DONE,
+            Configuration.FOLDER_WORK_IN_PROGRESS, Configuration.FOLDER_TO_BE_DONE};
     private static final String MAIL_PROTOCOL = "imaps";
     private static final String MAIL_HOST = "imap.gmail.com";
 

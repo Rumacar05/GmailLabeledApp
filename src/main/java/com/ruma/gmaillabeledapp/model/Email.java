@@ -1,14 +1,12 @@
 package com.ruma.gmaillabeledapp.model;
 
-import jakarta.mail.Message;
-
 import java.util.List;
 
 public class Email {
     private String subject;
     private String from;
     private List<String> label;
-    private long uid;
+    private final long uid;
 
     public Email(String subject, String from, List<String> label, long uid) {
         this.subject = subject;
@@ -47,6 +45,6 @@ public class Email {
 
     @Override
     public String toString() {
-        return String.format("Asunto: %s - De: %s - Etiqueta: %s", subject, from, label);
+        return String.format("Asunto: %s - De: %s - Etiquetas: %s", subject, from, label);
     }
 }

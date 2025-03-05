@@ -1,14 +1,15 @@
 package com.ruma.gmaillabeledapp.config;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.Properties;
 
 public class Configuration {
     private static final String FILE_PROPERTIES_PATH = "/config.properties";
 
+    public static final String FOLDER_DONE = "Done";
+    public static final String FOLDER_WORK_IN_PROGRESS = "Work.in.Progress";
+    public static final String FOLDER_TO_BE_DONE = "To.be.Done";
     public static String GMAIL_USERNAME;
     public static String GMAIL_PASSWORD;
 
